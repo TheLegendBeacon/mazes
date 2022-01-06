@@ -57,17 +57,17 @@ class MazeGrid:
 
     def __repr__(self):
         total= str()
-        total += "#"*(len(list(iter(self.matrix))[0])*2 +2)
+        total += '┌'+"─"*(len(list(iter(self.matrix))[0])*2)+'┐'
         total += "\n"
         for y, row in enumerate(self):
-            total += "#"
+            total += "│"
             for x, _ in enumerate(row):
-                total += f" {['-' if self.walls[(x+1, y), (x, y)] == Wall.SPACE else ' '][-1]}"
-            total += "#\n#"
+                total += f" {['│' if self.walls[(x+1, y), (x, y)] == Wall.SPACE else ' '][-1]}"
+            total += "│\n│"
             for x, _ in enumerate(row):
-                total += f" {['-' if self.walls[(x, y+1), (x, y)] == Wall.SPACE else ' '][-1]}"
-            total += '#\n'
-        total += "#"*(len(list(iter(self.matrix))[0])*2 +2)
+                total += f" {['─' if self.walls[(x, y+1), (x, y)] == Wall.SPACE else ' '][-1]}"
+            total += '│\n'
+        total += '└' + "─"*(len(list(iter(self.matrix))[0])*2) + '┘'
         return total
 
 def maze_carver(grid: MazeGrid, coords=[Coords(0, 0)]):
@@ -86,6 +86,7 @@ def maze_carver(grid: MazeGrid, coords=[Coords(0, 0)]):
 def recursive_backtracker(width, height):
     grid = MazeGrid(width, height)
     new_grid = maze_carver(grid)
+    #walls = list(iter(new_grid))
     return new_grid
 
 if __name__ == '__main__':
